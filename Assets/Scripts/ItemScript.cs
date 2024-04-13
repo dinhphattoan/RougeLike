@@ -46,6 +46,7 @@ public class ItemScript : MonoBehaviour
                 {
                     DragDropManager dragDropManager = FindObjectOfType<DragDropManager>();
 
+<<<<<<< HEAD
                     foreach (var panel in dragDropManager.AllPanels)
                     {
                         if (panel.ObjectId == "")
@@ -90,6 +91,23 @@ public class ItemScript : MonoBehaviour
                             return;
                         }
                     }
+=======
+                    objectsetting.ScaleOnDropped = true;
+                    objectsetting.DragScale = new Vector3(1f, 1f, 1f);
+                    //Mark id as a slot so it need to be unique
+                    objectsetting.Id = "Ob:" + index;
+                    objectsetting.SwitchObjects = true;
+                    objectsetting.ReplaceSmoothly = true;
+                    objectsetting.ReplacementSpeed = 2;
+                    objectsetting.ReturnSpeed = 2;
+                    dragDropManager.AllObjects.Add(objectsetting);
+                    objectsetting.ScaleOnDrag = true;
+                    objectsetting.DragScale = new Vector3(1.5f, 1.5f, 1.5f);
+                    Image image = slot.AddComponent<Image>();
+                    image.sprite = FindObjectOfType<GameManager>().listSpriteRefItemId[itemId];
+                    image.color = Color.white;
+                    AIDragDrop.DragDrop(objectsetting.Id, "Slot" + index.ToString(), true);
+>>>>>>> cddcc824ffba624e86b044623e3fb865419ca75c
                 }
 
             }
