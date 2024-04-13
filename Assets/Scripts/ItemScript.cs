@@ -74,14 +74,13 @@ public class ItemScript : MonoBehaviour
                     objectsetting.ReplaceSmoothly = true;
                     objectsetting.ReplacementSpeed = 2;
                     objectsetting.ReturnSpeed = 2;
-                    DragDropManager.AddObject(objectsetting);
-                    AIDragDrop.DragDrop(objectsetting.Id, "Slot" + index.ToString(), true);
+                    dragDropManager.AllObjects.Add(objectsetting);
                     objectsetting.ScaleOnDrag = true;
                     objectsetting.DragScale = new Vector3(1.5f, 1.5f, 1.5f);
                     Image image = slot.AddComponent<Image>();
                     image.sprite = FindObjectOfType<GameManager>().listSpriteRefItemId[itemId];
                     image.color = Color.white;
-
+                    AIDragDrop.DragDrop(objectsetting.Id, "Slot" + index.ToString(), true);
                 }
 
             }
