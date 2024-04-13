@@ -45,43 +45,51 @@ public class ItemScript : MonoBehaviour
                 if (!DragDropManager.CheckObjectExistById("Ob:" + index))
                 {
                     DragDropManager dragDropManager = FindObjectOfType<DragDropManager>();
-                    GameObject slot = new GameObject();
-                    GameObject textSlot = new GameObject();
-                    textSlot.transform.SetParent(slot.transform);
-                    RectTransform textRect = textSlot.AddComponent<RectTransform>();
-                    textRect.position = new Vector3(0, -15, 0);
-                    textRect.sizeDelta = new Vector2(40, 10);
-                    TextMeshProUGUI textMeshPro = textSlot.AddComponent<TextMeshProUGUI>();
-                    textMeshPro.text = 1.ToString();
-                    textMeshPro.fontSize = 10;
-                    textMeshPro.fontStyle = FontStyles.Bold;
-                    textMeshPro.alignment = TextAlignmentOptions.MidlineRight;
-                    slot.transform.SetParent(dragDropManager.FirstCanvas.transform);
-                    RectTransform recttrans = slot.AddComponent<RectTransform>();
-                    recttrans.sizeDelta = new Vector2(40, 40);
-                    var obevent = slot.AddComponent<ObjectEvents>();
-                    var objectsetting = slot.AddComponent<ObjectSettings>();
-                    obevent.OS = objectsetting;
-                    objectsetting.ReplaceSmoothly = true;
-                    objectsetting.ReplacementSpeed = 2;
-                    objectsetting.ReturnSpeed = 2;
 
-                    objectsetting.ScaleOnDropped = true;
-                    objectsetting.DragScale = new Vector3(1f, 1f, 1f);
-                    //Mark id as a slot so it need to be unique
-                    objectsetting.Id = "Ob:" + index;
-                    objectsetting.SwitchObjects = true;
-                    objectsetting.ReplaceSmoothly = true;
-                    objectsetting.ReplacementSpeed = 2;
-                    objectsetting.ReturnSpeed = 2;
-                    DragDropManager.AddObject(objectsetting);
-                    AIDragDrop.DragDrop(objectsetting.Id, "Slot" + index.ToString(), true);
-                    objectsetting.ScaleOnDrag = true;
-                    objectsetting.DragScale = new Vector3(1.5f, 1.5f, 1.5f);
-                    Image image = slot.AddComponent<Image>();
-                    image.sprite = FindObjectOfType<GameManager>().listSpriteRefItemId[itemId];
-                    image.color = Color.white;
+                    foreach (var panel in dragDropManager.AllPanels)
+                    {
+                        if (panel.ObjectId == "")
+                        {
+                            
+                            GameObject slot = new GameObject();
+                            GameObject textSlot = new GameObject();
+                            textSlot.transform.SetParent(slot.transform);
+                            RectTransform textRect = textSlot.AddComponent<RectTransform>();
+                            textRect.position = new Vector3(0, -15, 0);
+                            textRect.sizeDelta = new Vector2(40, 10);
+                            TextMeshProUGUI textMeshPro = textSlot.AddComponent<TextMeshProUGUI>();
+                            textMeshPro.text = 1.ToString();
+                            textMeshPro.fontSize = 10;
+                            textMeshPro.fontStyle = FontStyles.Bold;
+                            textMeshPro.alignment = TextAlignmentOptions.MidlineRight;
+                            slot.transform.SetParent(dragDropManager.FirstCanvas.transform);
+                            RectTransform recttrans = slot.AddComponent<RectTransform>();
+                            recttrans.sizeDelta = new Vector2(40, 40);
+                            var obevent = slot.AddComponent<ObjectEvents>();
+                            var objectsetting = slot.AddComponent<ObjectSettings>();
+                            obevent.OS = objectsetting;
+                            objectsetting.ReplaceSmoothly = true;
+                            objectsetting.ReplacementSpeed = 2;
+                            objectsetting.ReturnSpeed = 2;
 
+                            objectsetting.ScaleOnDropped = true;
+                            objectsetting.DragScale = new Vector3(1f, 1f, 1f);
+                            //Mark id as a slot so it need to be unique
+                            objectsetting.Id = "Ob:" + index;
+                            objectsetting.SwitchObjects = true;
+                            objectsetting.ReplaceSmoothly = true;
+                            objectsetting.ReplacementSpeed = 2;
+                            objectsetting.ReturnSpeed = 2;
+                            dragDropManager.AllObjects.Add(objectsetting);
+                            objectsetting.ScaleOnDrag = true;
+                            objectsetting.DragScale = new Vector3(1f, 1f, 1f);
+                            Image image = slot.AddComponent<Image>();
+                            image.sprite = FindObjectOfType<GameManager>().listSpriteRefItemId[itemId];
+                            image.color = Color.white;
+                            AIDragDrop.DragDrop(objectsetting.Id, panel.Id, true);
+                            return;
+                        }
+                    }
                 }
 
             }

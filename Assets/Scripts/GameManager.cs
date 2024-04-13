@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-
+        LoadInventory();
     }
     /// <summary>
     /// Spawns a given number of resource material at a specified position.
@@ -134,17 +134,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //Temp variables
     public void LoadInventory()
     {
-
+        foreach(var ob in dragDropManager.AllObjects)
+        {
+            int index = int.Parse(ob.Id.Substring(3));
+            var objectText = ob.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
+            objectText.text = playerManager.playerInventory._items[index].count.ToString();
+        }
 
     }
     public void OpenPlayerMenu()
     {
         isOpenMenu = !isOpenMenu;
         objectUIMenu.GetComponent<Canvas>().enabled = isOpenMenu;
-        if (isOpenMenu) LoadInventory();
         if (isOpenMenu)
         {
             animateImageShow.Func_PlayUIAnim();
