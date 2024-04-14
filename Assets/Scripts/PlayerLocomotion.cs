@@ -32,6 +32,7 @@ public class PlayerLocomotion : MonoBehaviour
     public Vector2 playerDirection = Vector2.zero;
     public Tilemap mapSize;
     public BoxCollider2D playerHitBox;
+    float prevPlayerRotatiobAngle;
     //Inner system attribute
     PlayerManager playerManager;
     void Start()
@@ -99,15 +100,15 @@ public class PlayerLocomotion : MonoBehaviour
         movement.Normalize();
         if (movement != Vector2.zero)
         {
-            if(!playerManager.isFreezeRotation)
-            HandleRotation(movement);
+            if (!playerManager.isFreezeRotation)
+                HandleRotation(movement);
 
         }
 
         movement = new Vector3(movementInput.x, movementInput.y, 0);
         movement *= playerSpeed;
 
-        if (IsBlocked(movement)|| playerManager.isFreezePosition) return;
+        if (IsBlocked(movement) || playerManager.isFreezePosition) return;
         parentRootPosition.Translate(movement * Time.deltaTime);
 
 
@@ -155,10 +156,14 @@ public class PlayerLocomotion : MonoBehaviour
     public void HandleRotation(Vector2 direction)
     {
         Vector3 right = Vector3.right;
-        float angle =Vector3.Angle(direction, right);
-        if(playerManager.isFreezePosition)
+        float angle = Vector3.Angle(direction, right);
+        if (playerManager.isFreezePosition)
         {
-            angle= Vector3.Angle((Vector3)playerManager.GetActionDirection(), right);
+            angle = Vector3.Angle((Vector3)playerManager.GetActionDirection(), right);
+        }
+        else if (direction.normalized == Vector2.up || direction.normalized == Vector2.down)
+        {
+            angle = prevPlayerRotatiobAngle;
         }
         if (angle > 90f)
         {
@@ -168,6 +173,7 @@ public class PlayerLocomotion : MonoBehaviour
         {
             this.transform.rotation = Quaternion.Euler(0f, -180f, 0f);
         }
+        prevPlayerRotatiobAngle = angle;
     }
     bool IsGrounded()
     {

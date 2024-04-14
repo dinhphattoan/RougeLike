@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
     List<GameObject> listGameObjectSlotUI;
     AnimateImageShow animateImageShow;
     PlayerManager playerManager;
+    public Canvas canvasToolButtons;
     //Right Panel
     public GameObject objectUIRightPanel;
     //Matrix of inventory slots
@@ -96,7 +97,7 @@ public class GameManager : MonoBehaviour
 
 
         }
-        objectUIMenu.GetComponent<Canvas>().enabled = false;
+       canvasToolButtons.enabled = false;
         isOpenMenu = false;
     }
 
@@ -147,7 +148,19 @@ public class GameManager : MonoBehaviour
     public void OpenPlayerMenu()
     {
         isOpenMenu = !isOpenMenu;
-        objectUIMenu.GetComponent<Canvas>().enabled = isOpenMenu;
+        canvasToolButtons.enabled = isOpenMenu;
+        //hide all objectItem in player inventory but not for tool menu
+        List<PanelSettings> panelInventorySetting = dragDropManager.AllPanels.FindAll(p=>p.Id.Contains("Slot"));
+        foreach(var objectsetting in dragDropManager.AllObjects)
+        {
+            foreach(var panel in panelInventorySetting)
+            {
+                if(panel.ObjectId == objectsetting.Id)
+                {
+                    objectsetting.gameObject.SetActive(isOpenMenu);
+                }
+            }
+        }
         if (isOpenMenu)
         {
             animateImageShow.Func_PlayUIAnim();

@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ec9bd29c0fb66444813ebd84fb60245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rockParticle: {fileID: 0}
+  rockParticle: {fileID: 4375462053568623147, guid: a5dadcab4aec8a944bd4777b7c9aee43, type: 3}
   rockHealth: 3
 --- !u!61 &4892579645120017473
 BoxCollider2D:
@@ -416,7 +416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ec9bd29c0fb66444813ebd84fb60245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rockParticle: {fileID: 0}
+  rockParticle: {fileID: 4375462053568623147, guid: a5dadcab4aec8a944bd4777b7c9aee43, type: 3}
   rockHealth: 3
 --- !u!114 &5920312044979274793
 MonoBehaviour:
@@ -670,7 +670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ec9bd29c0fb66444813ebd84fb60245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rockParticle: {fileID: 0}
+  rockParticle: {fileID: 4375462053568623147, guid: a5dadcab4aec8a944bd4777b7c9aee43, type: 3}
   rockHealth: 3
 --- !u!61 &5241307275206401300
 BoxCollider2D:
@@ -832,7 +832,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ec9bd29c0fb66444813ebd84fb60245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rockParticle: {fileID: 0}
+  rockParticle: {fileID: 4375462053568623147, guid: a5dadcab4aec8a944bd4777b7c9aee43, type: 3}
   rockHealth: 3
 --- !u!61 &7973727502753210240
 BoxCollider2D:
@@ -994,7 +994,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ec9bd29c0fb66444813ebd84fb60245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rockParticle: {fileID: 0}
+  rockParticle: {fileID: 4375462053568623147, guid: a5dadcab4aec8a944bd4777b7c9aee43, type: 3}
   rockHealth: 3
 --- !u!61 &4694709676117518867
 BoxCollider2D:
@@ -1270,7 +1270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ec9bd29c0fb66444813ebd84fb60245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rockParticle: {fileID: 0}
+  rockParticle: {fileID: 4375462053568623147, guid: a5dadcab4aec8a944bd4777b7c9aee43, type: 3}
   rockHealth: 3
 --- !u!61 &3040980746973840401
 BoxCollider2D:

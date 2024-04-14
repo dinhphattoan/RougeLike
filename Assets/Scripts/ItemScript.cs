@@ -50,7 +50,7 @@ public class ItemScript : MonoBehaviour
                     {
                         if (panel.ObjectId == "")
                         {
-                            
+
                             GameObject slot = new GameObject();
                             GameObject textSlot = new GameObject();
                             textSlot.transform.SetParent(slot.transform);
@@ -83,10 +83,14 @@ public class ItemScript : MonoBehaviour
                             dragDropManager.AllObjects.Add(objectsetting);
                             objectsetting.ScaleOnDrag = true;
                             objectsetting.DragScale = new Vector3(1f, 1f, 1f);
+                            objectsetting.FirstScale = Vector3.one;
                             Image image = slot.AddComponent<Image>();
                             image.sprite = FindObjectOfType<GameManager>().listSpriteRefItemId[itemId];
                             image.color = Color.white;
                             AIDragDrop.DragDrop(objectsetting.Id, panel.Id, true);
+                            if(panel.Id.Contains("Slot")){
+                                objectsetting.gameObject.SetActive(false);
+                            }
                             return;
                         }
                     }

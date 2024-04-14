@@ -38,6 +38,7 @@ public class AIDragDrop : MonoBehaviour
 					{
 						// Instant movement
 						DDM.AllObjects[i].PointerDown("AI1", AIPanel);
+						DDM.AllObjects[i].PointerUp("AI");
 					}
 				}
 				break;

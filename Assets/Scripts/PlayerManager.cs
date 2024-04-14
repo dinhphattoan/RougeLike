@@ -1,10 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-
 [SerializeField]
 public class PlayerInventory
 {
@@ -36,7 +36,7 @@ public class PlayerInventory
                 {
                     indexNull = i;
                 }
-            
+
             }
             else if (itemSlot.itemId == _items[i].itemId)
             {
@@ -112,6 +112,8 @@ public class PlayerManager : MonoBehaviour
     public LayerMask sphereCastLayerMask;
     public float castRadius = 1f;
     public GameObject selectedGameObject;
+    eItemId selectedItemId;
+    DragDropManager dragDropManager;
     public List<GameObject> listInRangeGameObject;
     private Animator animator;
     [Header("Player Attributes")]
@@ -120,7 +122,7 @@ public class PlayerManager : MonoBehaviour
     public float maxHealth = 100;
     private float chargingTime = 0f;
     [Header("Player Menu Attributes")]
-    public PlayerInventory playerInventory = new PlayerInventory(10);
+    public PlayerInventory playerInventory = new PlayerInventory(19);
     //Inner game attribute
     private float hitTimeFrame = 0.3f;
     private int hashNameHit;
@@ -143,6 +145,7 @@ public class PlayerManager : MonoBehaviour
         selectObjectCollider2D = selectedObject.GetComponent<Collider2D>();
         var tempList = panelUIHub.transform.GetChild(0);
         itemSlotScript = new ItemSlotScript();
+        dragDropManager = FindObjectOfType<DragDropManager>();
         for (int i = 0; i < tempList.transform.childCount; i++)
         {
             listButtons.Add(tempList.GetChild(i));
@@ -208,15 +211,24 @@ public class PlayerManager : MonoBehaviour
     }
     public void EquipTool(int i)
     {
-        for (int item = 0; item < listButtons.Count; item++)
+        int item=0;
+        foreach (var panel in dragDropManager.AllPanels)
         {
-            listButtons[item].GetComponent<Image>().color = Color.white;
-
-            if (i == item)
+            if (panel.Id == "button")
             {
-                listButtons[item].GetComponent<Image>().color = colorSelectBox;
-                selectedSprite = listButtons[item].GetChild(0).GetComponent<Image>().sprite;
+                panel.transform.GetComponent<Image>().color = Color.white;
+
+                if (i == item)
+                {
+                    listButtons[item].GetComponent<Image>().color = colorSelectBox;
+                    selectedSprite = listButtons[item].GetChild(0).GetComponent<Image>().sprite;
+                    PanelSettings panelSettings = dragDropManager.AllPanels[10 + i];
+                    selectedItemId = (eItemId)Enum.ToObject(typeof(eItemId), int.Parse(panelSettings.Id.Substring(3)));
+                }
+                item++;
             }
+            
+
         }
     }
 
@@ -336,8 +348,8 @@ public class PlayerManager : MonoBehaviour
                 ItemScript itemScript = ray.transform.GetComponent<ItemScript>();
                 if (itemScript != null)
                 {
-
-                    itemScript.StartTransaction(this.transform);
+                    if (!itemScript.isTransactioned)
+                        itemScript.StartTransaction(this.transform);
                 }
             }
         }
